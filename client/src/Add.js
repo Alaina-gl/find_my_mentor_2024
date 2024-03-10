@@ -1,195 +1,113 @@
-import React, { useState } from "react";
-import "./Add.css";
+import React, { useEffect, useState } from "react";
+import Add from "./Add";
+import Delete from "./Delete";
+import "./App.css";
+import codingIcon from "./images/coding.svg";
+// import "./assets/css/fonts.css";
 
-function Add() {
-  const [formData, setFormData] = useState({
-    name: { first: "", last: "" },
-    gender: "",
-    intro: "",
-    expertise: [],
-    languages: [],
-    date: "",
-    timeStart: { hour: "", min: "" },
-    timeEnd: { hour2: "", min2: "" },
-    meetingLink: "",
-    id: "",
-  });
+const originalData = await fetch("/getUsers").then((response) => response.json())
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "firstName" || name === "lastName") {
-      setFormData((prevData) => ({
-        ...prevData,
-        name: {
-          ...prevData.name,
-          [name === "firstName" ? "first" : "last"]: value,
-        },
-      }));
-    } else if (name.startsWith("timeStart") || name.startsWith("timeEnd")) {
-      const [prefix, subField] = name.split(".");
-      setFormData((prevData) => ({
-        ...prevData,
-        [prefix]: {
-          ...prevData[prefix],
-          [subField]: parseInt(value), // convert to integer
-        },
-      }));
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
-  };
+function App() {
+  const [backendData, setBackendData] = useState([]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("/postUsers", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+
+  useEffect(() => {
+    fetch("/getUsers")
+      .then((response) => response.json())
+      .then((data) => {
+        setBackendData(data);
       });
-      if (response.ok) {
-        console.log("User created successfully");
-        //
-      } else {
-        console.log("Error creating user");
-      }
-    } catch (error) {
-      console.log("Error:", error);
-    }
+  }, []);
+
+  // useEffect(() => {
+  //   setState(backendData)
+  // }, [handleFilterFemale]);
+
+  const handleNewUser = (newUser) => {
+    setBackendData((prevData) => [...prevData, newUser]);
   };
+
+  const handleDeleteUser = (deletedUserId) => {
+    setBackendData((prevData) =>
+      prevData.filter((user) => user.id !== deletedUserId)
+    );
+  };
+
+  const handleFilterNonBinary = () => {
+
+    const updatedData = originalData.filter((user) => user.gender === "non-binary")
+    setBackendData(updatedData)
+  };
+  const handleFilterFemale = () => {
+
+      const updatedData = originalData.filter((user) => user.gender === "female")
+      setBackendData(updatedData)
+  };
+
+  const handleFilterMale = () => {
+
+    const updatedData = originalData.filter((user) => user.gender === "male")
+    setBackendData(updatedData)
+};
+
+  const handleClearFilter = () => {
+    setBackendData(originalData)
+};
 
   return (
-    <div>
-      <h2 className = "subtitle">Add Mentor</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="input-container">
-          <input
-            type="text"
-            name="firstName"
-            value={formData.name.first}
-            onChange={handleChange}
-            placeholder="First Name"
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="text"
-            name="lastName"
-            value={formData.name.last}
-            onChange={handleChange}
-            placeholder="Last Name"
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="text"
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            placeholder="Gender"
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="text"
-            name="intro"
-            value={formData.intro}
-            onChange={handleChange}
-            placeholder="Introduction"
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="text"
-            name="expertise"
-            value={formData.expertise}
-            onChange={handleChange}
-            placeholder="Field(s) of Expertise"
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="text"
-            name="languages"
-            value={formData.languages}
-            onChange={handleChange}
-            placeholder="Proficient Languages"
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="text"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            placeholder="Day of Week Available"
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="text"
-            name="timeStart.hour"
-            value={formData.timeStart.hour}
-            onChange={handleChange}
-            placeholder="Start Hour"
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="text"
-            name="timeStart.min"
-            value={formData.timeStart.min}
-            onChange={handleChange}
-            placeholder="Start Minute"
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="text"
-            name="timeEnd.hour2"
-            value={formData.timeEnd.hour2}
-            onChange={handleChange}
-            placeholder="End Hour"
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="text"
-            name="timeEnd.min2"
-            value={formData.timeEnd.min2}
-            onChange={handleChange}
-            placeholder="End Minute"
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="text"
-            name="meetingLink"
-            value={formData.meetingLink}
-            onChange={handleChange}
-            placeholder="Meeting Link"
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="text"
-            name="id"
-            value={formData.id}
-            onChange={handleChange}
-            placeholder="ID"
-          />
-        </div>
-        <button className="submit-button" type="submit">
-          Submit
-        </button>
-      </form>
+    <div className="app">
+      <h1 className = "title"> Mentor.me 💡</h1> 
+      {/* Please feel free to change the title here if you can think of a better name! */}
+      <img src={codingIcon} alt="Coding Icon" className="codeIcon" />
+      <div className="description">
+        <p>
+          Embark on your programming journey with ease as you delve into a world
+          of support and expertise. Our platform seamlessly connects you with
+          supportive mentors who are dedicated to guiding you every step of the
+          way. Whether you're a novice or an experienced coder, our community
+          fosters an inclusive environment where everyone can thrive.
+        </p>
+      </div>
+      <br /> <br />
+      <h2 className = "subtitle">Mentors</h2>
+      
+      <div>
+      <button className="delete-button" onClick={handleFilterNonBinary}>
+        Only Non-binary
+      </button>
+      <button className="delete-button" onClick={handleFilterFemale}>
+        Only Female
+      </button>
+      <button className="delete-button" onClick={handleFilterMale}>
+        Only Male
+      </button>
+      <button className="delete-button" onClick={handleClearFilter}>
+        Show All
+      </button>
+      </div>
+
+      <div className="container" />
+      {typeof backendData === "undefined" ? (
+        <p>Loading...</p>
+      ) : (
+        backendData.map((item) => (
+          <div className="mentor" key={item._id}>
+            <p><b>First Name: </b>{item.name.first}</p>  
+            <p><b>Last Name: </b>{item.name.last}</p>
+            <p><b>Gender: </b>{item.gender}</p>
+            <p><b>Brief Introduction: </b>{item.intro}</p>
+            <p><b>Field of Expertise: </b>{item.expertise.map(expertise => expertise).join(', ')}</p>
+            <p><b>Proficient Languages: </b>{item.languages.map(language => language).join(', ')}</p>
+            <p><b>Time: </b>{item.date} @{item.timeStart.hour}:{item.timeStart.min}-{item.timeEnd.hour}:{item.timeEnd.min}</p>
+            <p><b>Virtual Meeting Link: </b> <a href="item.meetingLink">{item.meetingLink}</a></p>
+            <p><b>ID: </b>{item.id}</p>
+          </div>
+        ))
+      )}
+      <Add onNewUser={handleNewUser} />
+      <Delete onDeleteUser={handleDeleteUser} />
     </div>
   );
 }
 
-export default Add;
+export default App;
