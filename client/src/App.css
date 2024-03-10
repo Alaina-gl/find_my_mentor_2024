@@ -23,6 +23,28 @@
   color: white;
 }
 
+h1 {
+  font-family: "Roboto", sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #000000; /* change color here */
+}
+
+.description p {
+  font-family: "Helvetica", sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  line-height: 1.5;
+  color: #000000; /* change color here */
+}
+
+.codeIcon {
+  width: 20rem;
+  height: 20rem;
+}
+
 .container {
   width: 100%;
   margin-top: 3rem;
