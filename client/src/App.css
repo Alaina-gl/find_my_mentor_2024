@@ -1,15 +1,36 @@
+@import "styles.css";
+
 .App {
   text-align: center;
 }
 
+.title{
+  font-family: "Aclonica";
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+  font-size: 60px;
+}
+
+.subtitle{
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+  font-size: 40px;
+}
+
 .app {
   padding: 4rem;
-
+  font-family: "Aclonica";
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgb(177, 160, 200);
+  background-image: linear-gradient(to bottom right, rgb(227, 159, 174), rgb(177, 160, 200), rgb(121, 145, 186));
+}
+
+
+p{
+  font-size: 20px;
+  font-family: "Aclonica";
 }
 
 .App-header {
@@ -31,13 +52,23 @@ h1 {
 }
 
 .description p {
-  font-family: "Helvetica", sans-serif;
-  font-size: 1.2rem;
+  font-family: "Aclonica";
+  /* font-size: 1.2rem; */
   margin-bottom: 1rem;
   margin-left: 5rem;
   margin-right: 5rem;
   line-height: 1.5;
   color: #000000; /* change color here */
+  width: 710px;
+  /* height: 460px; */
+  margin: 1.5rem;
+  padding: 15px;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 5px solid rgba(78, 25, 87, 0.45);
+  background-color: rgba(250, 250, 250, .3);
+  outline: 5px solid rgba(250, 250, 250, .45);;
 }
 
 .codeIcon {
@@ -57,15 +88,17 @@ h1 {
 }
 
 .mentor {
-  width: 310px;
-  height: 460px;
+
+  width: 710px;
+  /* height: 460px; */
   margin: 1.5rem;
   padding: 15px;
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  border: 5px solid #1d1957;
-
+  border: 5px solid rgba(78, 25, 87, 0.45);
+  background-color: rgba(250, 250, 250, .3);
+  outline: 5px solid rgba(250, 250, 250, .45);;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
   box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
 }
@@ -82,6 +115,9 @@ h1 {
 .mentor:hover {
   box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
   transform: scale(1.05, 1.05);
+  outline: 5px solid white;
+  background-color: rgba(250, 250, 250, .7);
+  border: 5px solid rgba(78, 25, 87, 0.75);
 }
 
 .mentor div:nth-of-type(2) {

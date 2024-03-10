@@ -27,7 +27,7 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Find My Mentor 💡</h1> 
+      <h1 className = "title"> Mentor.me 💡</h1> 
       {/* Please feel free to change the title here if you can think of a better name! */}
       <img src={codingIcon} alt="Coding Icon" className="codeIcon" />
       <div className="description">
@@ -40,31 +40,22 @@ function App() {
         </p>
       </div>
       <br /> <br />
-      <h2>Mentors</h2>
+      <h2 className = "subtitle">Mentors</h2>
       <div className="container" />
       {typeof backendData === "undefined" ? (
         <p>Loading...</p>
       ) : (
         backendData.map((item) => (
           <div className="mentor" key={item._id}>
-            <p>First Name: {item.name.first}</p>
-            <p>Last Name: {item.name.last}</p>
-            <p>Gender: {item.gender}</p>
-            <p>Brief Introduction: {item.intro}</p>
-            <p>
-              Field of Expertise:{" "}
-              {item.expertise.map((expertise) => expertise).join(", ")}
-            </p>
-            <p>
-              Proficient Languages:{" "}
-              {item.languages.map((language) => language).join(", ")}
-            </p>
-            <p>
-              Time: {item.date} @{item.timeStart.hour}:{item.timeStart.min}-
-              {item.timeEnd.hour}:{item.timeEnd.min}
-            </p>
-            <p>Virtual Meeting Link: {item.meetingLink}</p>
-            <p>ID: {item.id}</p>
+            <p><b>First Name: </b>{item.name.first}</p>  
+            <p><b>Last Name: </b>{item.name.last}</p>
+            <p><b>Gender: </b>{item.gender}</p>
+            <p><b>Brief Introduction: </b>{item.intro}</p>
+            <p><b>Field of Expertise: </b>{item.expertise.map(expertise => expertise).join(', ')}</p>
+            <p><b>Proficient Languages: </b>{item.languages.map(language => language).join(', ')}</p>
+            <p><b>Time: </b>{item.date} @{item.timeStart.hour}:{item.timeStart.min}-{item.timeEnd.hour}:{item.timeEnd.min}</p>
+            <p><b>Virtual Meeting Link: </b> <a href="item.meetingLink">{item.meetingLink}</a></p>
+            <p><b>ID: </b>{item.id}</p>
           </div>
         ))
       )}

@@ -28,7 +28,7 @@ function Delete() {
     <div>
       <br />
       <br />
-      <h2>Delete User</h2>
+      <h2 className = "subtitle">Delete Mentor</h2>
       <div className="input-container">
         <input
           type="text"

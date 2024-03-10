@@ -10,7 +10,7 @@ function Add() {
     languages: [],
     date: "",
     timeStart: { hour: "", min: "" },
-    timeEnd: { hour: "", min: "" },
+    timeEnd: { hour2: "", min2: "" },
     meetingLink: "",
     id: "",
   });
@@ -54,6 +54,7 @@ function Add() {
       });
       if (response.ok) {
         console.log("User created successfully");
+        //
       } else {
         console.log("Error creating user");
       }
@@ -64,7 +65,7 @@ function Add() {
 
   return (
     <div>
-      <h2>Add Mentor</h2>
+      <h2 className = "subtitle">Add Mentor</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-container">
           <input
@@ -105,10 +106,28 @@ function Add() {
         <div className="input-container">
           <input
             type="text"
+            name="expertise"
+            value={formData.expertise}
+            onChange={handleChange}
+            placeholder="Field(s) of Expertise"
+          />
+        </div>
+        <div className="input-container">
+          <input
+            type="text"
+            name="languages"
+            value={formData.languages}
+            onChange={handleChange}
+            placeholder="Proficient Languages"
+          />
+        </div>
+        <div className="input-container">
+          <input
+            type="text"
             name="date"
             value={formData.date}
             onChange={handleChange}
-            placeholder="Date"
+            placeholder="Day of Week Available"
           />
         </div>
         <div className="input-container">
@@ -132,8 +151,8 @@ function Add() {
         <div className="input-container">
           <input
             type="text"
-            name="timeEnd.hour"
-            value={formData.timeEnd.hour}
+            name="timeEnd.hour2"
+            value={formData.timeEnd.hour2}
             onChange={handleChange}
             placeholder="End Hour"
           />
@@ -141,8 +160,8 @@ function Add() {
         <div className="input-container">
           <input
             type="text"
-            name="timeEnd.min"
-            value={formData.timeEnd.min}
+            name="timeEnd.min2"
+            value={formData.timeEnd.min2}
             onChange={handleChange}
             placeholder="End Minute"
           />

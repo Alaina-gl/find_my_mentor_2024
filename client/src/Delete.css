@@ -15,16 +15,22 @@
   font: inherit;
   cursor: pointer;
   padding: 10px;
-  border: 1px solid #ffffff;
-  background-color: #624eb5;
+  border: 2.5px solid rgba(250, 250, 250, .7);
+  background-color: rgba(78, 25, 87, 0.45);
   color: white;
   border-radius: 12px;
   margin-right: 1rem;
   margin-top: 10px;
 }
 
-.delete-button:hover,
+.delete-button:hover{
+  background-color: rgba(78, 25, 87, 0.75);
+  transform: scale(1.05, 1.05);
+  border: 2.5px solid #ffffff;
+}
+
 .delete-button:active {
-  background-color: #322191;
-  border-color: #ffffff;
+  background-color: rgba(78, 25, 87, 0.75);
+  transform: scale(0.95, 0.95);
+  border: 2.5px solid #ffffff;
 }
