@@ -1,0 +1,30 @@
+.input-container {
+  margin-bottom: 4px;
+}
+
+.input-container input {
+  width: calc(100% - 16px);
+  padding: 6px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.delete-button {
+  font: inherit;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ffffff;
+  background-color: #624eb5;
+  color: white;
+  border-radius: 12px;
+  margin-right: 1rem;
+  margin-top: 10px;
+}
+
+.delete-button:hover,
+.delete-button:active {
+  background-color: #322191;
+  border-color: #ffffff;
+}
