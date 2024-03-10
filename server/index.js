@@ -23,25 +23,9 @@ const UserSchema = mongoose.Schema ({
     image: String
 });
 
-const UpsetSchema = mongoose.Schema ({
-    name: String,
-    age: Number
-})
-
 const UserModel = mongoose.model("product", UserSchema);
 
 app.get("/getUsers", async (req, res) => {
-    console.log(await mongoose.connection.db.listCollections().toArray)
-    // UserModel.find({})
-    //     .then(function(users) {
-    //         console.log("Found users:", users); // Log the users found in the database
-    //         // res.json(users);
-    //         res.json({mssg: "hello"})
-    //     })
-    //     .catch(function(err) {
-    //         console.log("Error fetching users:", err);
-    //         res.status(500).send('Internal Server Error'); // Send a 500 status code in case of error
-    //     });
     try {
         const result = await UserModel.find();
         res.json(result);
@@ -49,3 +33,32 @@ app.get("/getUsers", async (req, res) => {
         console.log("Error fetching", err);
     }
 });
+
+app.use(express.json());
+app.post("/postUsers", async (req, res) => {
+    try {
+        const { id, name, price, category, image } = req.body; 
+        const newUser = new UserModel({ id, name, price, category, image });
+        await newUser.save();
+        res.status(201).json(newUser); // Respond with the newly created user
+    } catch (err) {
+        console.log("Error creating user", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+app.delete("/deleteUser/:id", async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const deletedUser = await UserModel.findByIdAndDelete(userId);
+        if (!deletedUser) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.json({ message: "User deleted successfully", deletedUser });
+    } catch (err) {
+        console.log("Error deleting user", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
