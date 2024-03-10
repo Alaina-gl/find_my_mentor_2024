@@ -24,7 +24,8 @@ const UserSchema = mongoose.Schema ({
     date: String,
     timeStart: {hour: Number, min: Number},
     timeEnd: {hour: Number, min: Number},
-    meetingLink: String
+    meetingLink: String,
+    id: Number
 });
 
 const UserModel = mongoose.model("mentors", UserSchema);
@@ -38,31 +39,31 @@ app.get("/getUsers", async (req, res) => {
     }
 });
 
-// app.use(express.json());
-// app.post("/postUsers", async (req, res) => {
-//     try {
-//         const { id, name, price, category, image } = req.body; 
-//         const newUser = new UserModel({ id, name, price, category, image });
-//         await newUser.save();
-//         res.status(201).json(newUser); // Respond with the newly created user
-//     } catch (err) {
-//         console.log("Error creating user", err);
-//         res.status(500).json({ error: "Internal Server Error" });
-//     }
-// });
+app.use(express.json());
+app.post("/postUsers", async (req, res) => {
+    try {
+        const { id, name, price, category, image } = req.body; 
+        const newUser = new UserModel({ id, name, price, category, image });
+        await newUser.save();
+        res.status(201).json(newUser); // Respond with the newly created user
+    } catch (err) {
+        console.log("Error creating user", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
-// app.delete("/deleteUser/:id", async (req, res) => {
-//     try {
-//         const userId = req.params.id;
-//         const deletedUser = await UserModel.findByIdAndDelete(userId);
-//         if (!deletedUser) {
-//             return res.status(404).json({ error: "User not found" });
-//         }
-//         res.json({ message: "User deleted successfully", deletedUser });
-//     } catch (err) {
-//         console.log("Error deleting user", err);
-//         res.status(500).json({ error: "Internal Server Error" });
-//     }
-// });
+app.delete("/deleteUser/:id", async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const deletedUser = await UserModel.findByIdAndDelete(userId);
+        if (!deletedUser) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.json({ message: "User deleted successfully", deletedUser });
+    } catch (err) {
+        console.log("Error deleting user", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
 
