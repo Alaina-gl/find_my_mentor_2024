@@ -5,8 +5,11 @@ import "./App.css";
 import codingIcon from "./images/coding.svg";
 // import "./assets/css/fonts.css";
 
+const originalData = await fetch("/getUsers").then((response) => response.json())
+
 function App() {
   const [backendData, setBackendData] = useState([]);
+
 
   useEffect(() => {
     fetch("/getUsers")
@@ -15,6 +18,10 @@ function App() {
         setBackendData(data);
       });
   }, []);
+
+  // useEffect(() => {
+  //   setState(backendData)
+  // }, [handleFilterFemale]);
 
   const handleNewUser = (newUser) => {
     setBackendData((prevData) => [...prevData, newUser]);
@@ -25,6 +32,27 @@ function App() {
       prevData.filter((user) => user.id !== deletedUserId)
     );
   };
+
+  const handleFilterNonBinary = () => {
+
+    const updatedData = originalData.filter((user) => user.gender === "non-binary")
+    setBackendData(updatedData)
+  };
+  const handleFilterFemale = () => {
+
+      const updatedData = originalData.filter((user) => user.gender === "female")
+      setBackendData(updatedData)
+  };
+
+  const handleFilterMale = () => {
+
+    const updatedData = originalData.filter((user) => user.gender === "male")
+    setBackendData(updatedData)
+};
+
+  const handleClearFilter = () => {
+    setBackendData(originalData)
+};
 
   return (
     <div className="app">
@@ -42,6 +70,22 @@ function App() {
       </div>
       <br /> <br />
       <h2 className = "subtitle">Mentors</h2>
+      
+      <div>
+      <button className="delete-button" onClick={handleFilterNonBinary}>
+        Only Non-binary
+      </button>
+      <button className="delete-button" onClick={handleFilterFemale}>
+        Only Female
+      </button>
+      <button className="delete-button" onClick={handleFilterMale}>
+        Only Male
+      </button>
+      <button className="delete-button" onClick={handleClearFilter}>
+        Show All
+      </button>
+      </div>
+
       <div className="container" />
       {typeof backendData === "undefined" ? (
         <p>Loading...</p>
