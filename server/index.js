@@ -42,10 +42,11 @@ app.get("/getUsers", async (req, res) => {
 app.use(express.json());
 app.post("/postUsers", async (req, res) => {
     try {
-        const { id, name, price, category, image } = req.body; 
-        const newUser = new UserModel({ id, name, price, category, image });
+        console.log(req.body)
+        const { name: { first, last }, gender, intro, expertise, languages, date, timeStart: { hour, min }, timeEnd: { hour2, min2 }, meetingLink, id } = req.body;
+        const newUser = new UserModel({ name: { first, last }, gender, intro, expertise, languages, date, timeStart: { hour, min }, timeEnd: { hour: hour2, min: min2 }, meetingLink, id });
         await newUser.save();
-        res.status(201).json(newUser); // Respond with the newly created user
+        res.status(201).json(newUser); 
     } catch (err) {
         console.log("Error creating user", err);
         res.status(500).json({ error: "Internal Server Error" });
@@ -55,7 +56,7 @@ app.post("/postUsers", async (req, res) => {
 app.delete("/deleteUser/:id", async (req, res) => {
     try {
         const userId = req.params.id;
-        const deletedUser = await UserModel.findByIdAndDelete(userId);
+        const deletedUser = await UserModel.findOneAndDelete({ id: userId }); 
         if (!deletedUser) {
             return res.status(404).json({ error: "User not found" });
         }

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react"
-
+import Add from "./Add"; 
+import Delete from "./Delete"; 
 import "./App.css"
 
 function App() {
@@ -12,6 +13,17 @@ function App() {
     ).then(
     data => {setBackendData(data)}
   )}, [])
+  
+  const handleNewUser = newUser => {
+    setBackendData(prevData => [...prevData, newUser]);
+  };
+
+  const handleDeleteUser = deletedUserId => {
+    setBackendData(prevData =>
+      prevData.filter(user => user.id !== deletedUserId)
+    );
+  };
+
 
   return (
     <div className="app">
@@ -34,6 +46,8 @@ function App() {
           </div>
         ))
       )}
+      <Add onNewUser={handleNewUser} />
+      <Delete onDeleteUser={handleDeleteUser} />
     </div>
   )
 
