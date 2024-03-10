@@ -44,6 +44,45 @@ function Add() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.id || isNaN(formData.id) || parseInt(formData.id) <= 0) {
+      alert("ID needs to be entered as a valid positive number");
+      return;
+    }
+    if (!formData.name.first || !formData.name.last) {
+      alert("Please enter both first and last names.");
+      return;
+    }
+  
+    if (!formData.gender) {
+      alert("Please enter the gender.");
+      return;
+    }
+  
+    if (!formData.intro) {
+      alert("Please enter the introduction.");
+      return;
+    }
+  
+    if (formData.expertise.length === 0) {
+      alert("Please enter at least one field of expertise.");
+      return;
+    }
+  
+    if (formData.languages.length === 0) {
+      alert("Please enter at least one proficient language.");
+      return;
+    }
+  
+    if (!formData.date) {
+      alert("Please enter the day of week available.");
+      return;
+    }
+    
+    if (!formData.meetingLink) {
+      alert("Please enter the meeting link.");
+      return;
+    }
+  
     try {
       const response = await fetch("/postUsers", {
         method: "POST",
@@ -54,6 +93,7 @@ function Add() {
       });
       if (response.ok) {
         console.log("User created successfully");
+        alert("Mentor created successfully.");
         //
       } else {
         console.log("Error creating user");

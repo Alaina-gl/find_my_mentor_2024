@@ -15,6 +15,7 @@ function Delete() {
       });
       if (response.ok) {
         console.log("User deleted successfully");
+        alert("Mentor deleted successfully.");
       } else {
         console.log("Error deleting user");
       }
