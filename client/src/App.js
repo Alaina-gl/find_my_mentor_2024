@@ -3,6 +3,7 @@ import Add from "./Add";
 import Delete from "./Delete";
 import "./App.css";
 import codingIcon from "./images/coding.svg";
+// import "./assets/css/fonts.css";
 
 function App() {
   const [backendData, setBackendData] = useState([]);
