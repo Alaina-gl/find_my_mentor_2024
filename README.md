@@ -11,7 +11,7 @@
 * Helen (@Techeleno)
 * Tammy (@tammy-kim)
 
-# How to run the program
+**How to run the program**
 
 1. Clone the repository.
 2. Ensure the latest version of node is installed.
